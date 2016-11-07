@@ -1,13 +1,15 @@
-# My game
+# EX36 game Julia Vollmer Stream A 3027445
 from sys import argv, exit
 script, name = argv #Player's name
 # Theme: deserted island / plane crash
-inventar = []
-stuff = ["signal light", "coconut", "canned food", "lighter", "rope"]
-survivor = 1
+#There are 4 possible ways to end game: die, escape by raft, give signal on a hill, stay at island and be the king of the cannibals
+inventar = [] #player's inventar
+stuff = ["signal light", "coconut", "canned food", "lighter", "rope"] #stuff at the beach
+survivor = 1 #number is crucial for escape with raft
 last_words = " "
-raft = False
-fire = False
+raft = False #needs to be build first
+fire = False #need the right materials first
+
 def survivors(number):
     global survivor
     print "Do you want to ask them to join you?"
@@ -25,8 +27,7 @@ def inventar1(pick):
     inventar.append(pick)
     print "This is in your inventar now:", inventar
 
-def jungle():
-    # traps, tools,... leaves logs
+def jungle(): #natural materials are limitless, that's why they can be picked up as much as the player want
     print "The jungle is a ocean of greens with a bit of color here and there. You spot hidden paths in all of this."
     print "\t 'straight' \n'left' \t\t\t\t 'right' \n\t 'back'"
     choice_jungle = raw_input("> ")
@@ -89,10 +90,11 @@ def junglepath():
     else:
         faint()
 
-def village(): #cannibal village
+def village(): #cannibal village, hidden easter egg for my roommate: ESCAPE ROUTE1 'king of cannibals', if blanket and coconut in inventar
+    #possible new survivor
     print "Oh no, it seems the people are cannibals."
     if "blanket" in inventar and "coconut" in inventar:
-        print "You have a blanket and a coconut in your inventar"
+        print "You have a blanket and a coconut in your inventar."
         print "Are you insane enough for this idea?"
         choice_king = raw_input("> ")
         if "yes" in choice_king or "hell yeah" in choice_king:
@@ -107,7 +109,7 @@ def village(): #cannibal village
             """ % name
             exit(0)
         else:
-            print "%s, you are a sissy. Okay then." % name
+            print "%s, you are such a sissy. Okay then." % name
     else:
         print "Oh wait, they even captured another survivor!"
     print "Do you wish to rescue him?"
@@ -139,8 +141,8 @@ def boat(): #picking up other survivors
     print "Lets go back to the beach."
     beach()
 
-def hill():    #where the signal is best seen
-    print "You reach a hill"
+def hill():    # ESCAPE ROUTE2 where the signal light or smoke signal is best seen
+    print "You reach a hill."
     print "The view from here is stunning. You can oversee the whole island."
     while "signal light" in inventar or fire:
         print "This gives you and idea. This might be the best spot for..."
@@ -183,9 +185,9 @@ def beach(): #picking up things
         stuff.remove("signal light")
         inventar1("signal light")
     elif "coconut" in choice_things:
-        print "You're going to the coconut. Do you want to eat it? Yes or No?"
+        print "You're going to the coconut. Do you want to eat it? 'yes' or 'no'?"
         choice_coconut = raw_input("> ")
-        if "Yes" == choice_coconut:
+        if "yes" == choice_coconut:
             print "You try to open the coconut with your head and feel dizzy."
             faint()
         else:
@@ -212,7 +214,7 @@ def beach(): #picking up things
     if "boat" in choice_things:
         boat()
     else:
-        print "Anything else? 'Yes' \t'No'"
+        print "Anything else? 'yes' \t'no'"
         choice_pick = raw_input("> ")
         if "yes" in choice_pick:
             beach()
@@ -226,7 +228,7 @@ def faint(): #can't make a valid decision
     print "You must have lost your memories and somehow ended back at the beach."
     beach_beginning()
 
-def ocean(): #escape spot
+def ocean(): #ESCAPE ROUTE3
     print "You are at the ocean. What do you want to do?"
     print "Swim back? Or do you have a raft?"
     choice_ocean = raw_input("> ")
@@ -234,21 +236,21 @@ def ocean(): #escape spot
         dead("You do not have the strength for this. You drown.")
     elif "raft" in choice_ocean and raft:
         print "You take your selfmade raft. It needs to fit %d people." % survivor
-        print "How many people including will you let on your raft?"
+        print "How many people including you will you let on your raft?"
         choice_raft = raw_input("> ")
         people = int(choice_raft)
         if people > 6 and people == survivor:
-            dead("Your intentions were good, but the raft can't withhold the weight.\nEveryone including you drowns on the open sea and dies. ")
+            dead("Your intentions were good, but the raft can't withhold the weight.\nEveryone including you drowns on the open sea and dies.")
         elif people < 6 and people < survivor:
             print "You successful escaped, but you left other people on the island behind."
             print "Your guilty conscience will forever haunt you. Great!"
             exit(0)
         elif people < 6 and people == survivor:
-            print "Great! Thanks to you, the escape from the island was succesfull! Be happy back at home."
+            print "Great! Thanks to you, the escape from the island was successful! Be happy back at home."
             print "%s ,good job on staying alive." % name
             exit(0)
         else:
-            print "You seem undecided and take a long while thinking."
+            print "You seem undecided and take a long time thinking."
             faint()
     else:
         print "You don't want to swim and don't even have a raft! Maybe you could build one?"
@@ -276,7 +278,7 @@ While you look around you see the wide ocean, a jungle and the endless beach. Wh
         faint()
 
 def dead(why):
-    print why, "\nGreat job %s, you're dead. Your relatives are devasted. But somehow your last words reached them. \nMaybe that will make them feel better:" % name
+    print why, "\nGreat job %s, you're dead. Your relatives are devastated. But somehow your last words reached them. \nMaybe that will make them feel better:" % name
     print last_words
     print "Or not."
     exit(0)
