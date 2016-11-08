@@ -3,7 +3,7 @@ from sys import argv, exit
 script, name = argv #Player's name
 # Theme: deserted island / plane crash
 #There are 4 possible ways to end game: die, escape by raft, give signal on a hill, stay at island and be the king of the cannibals
-inventar = [] #player's inventar
+inventory = [] #player's inventory
 stuff = ["signal light", "coconut", "canned food", "lighter", "rope"] #stuff at the beach
 survivor = 1 #number is crucial for escape with raft
 last_words = " "
@@ -23,9 +23,9 @@ def survivors(number):
         faint()
     return survivor
 
-def inventar1(pick):
-    inventar.append(pick)
-    print "This is in your inventar now:", inventar
+def inventoryadd(pick):
+    inventory.append(pick)
+    print "This is in your inventory now:", inventory
 
 def jungle(): #natural materials are limitless, that's why they can be picked up as much as the player want
     print "The jungle is a ocean of greens with a bit of color here and there. You spot hidden paths in all of this."
@@ -34,9 +34,9 @@ def jungle(): #natural materials are limitless, that's why they can be picked up
     if "right" in choice_jungle:
         print "There are some fallen trees lying around."
         print "You pick up the logs. Who knows, they might help somehow?"
-        inventar1("logs")
+        inventoryadd("logs")
         global raft
-        if not raft and "rope" in inventar:
+        if not raft and "rope" in inventory:
             raft = True
             print "You use the logs and the rope to build a raft!"
             print "Genius."
@@ -63,13 +63,13 @@ def junglepath():
     print "Want to pick up some sticks or leaves?"
     choice_junglepath = raw_input("> ")
     if "stick" in choice_junglepath:
-        inventar1("stick")
+        inventoryadd("stick")
         tool = "a stick"
     elif "leaves" in choice_junglepath:
-        inventar1("leaves")
+        inventoryadd("leaves")
     elif "yes" == choice_junglepath:
-        inventar1("stick")
-        inventar1("leaves")
+        inventoryadd("stick")
+        inventoryadd("leaves")
     else:
         print "You leave the stuff there and go on."
     print "\t 'straight' \n'left \t\t\t\t 'right' \n\t 'back'"
@@ -90,11 +90,11 @@ def junglepath():
     else:
         faint()
 
-def village(): #cannibal village, hidden easter egg for my roommate: ESCAPE ROUTE1 'king of cannibals', if blanket and coconut in inventar
+def village(): #cannibal village, hidden easter egg for my roommate: ESCAPE ROUTE1 'king of cannibals', if blanket and coconut in inventory
     #possible new survivor
     print "Oh no, it seems the people are cannibals."
-    if "blanket" in inventar and "coconut" in inventar:
-        print "You have a blanket and a coconut in your inventar."
+    if "blanket" in inventory and "coconut" in inventory:
+        print "You have a blanket and a coconut in your inventory."
         print "Are you insane enough for this idea?"
         choice_king = raw_input("> ")
         if "yes" in choice_king or "hell yeah" in choice_king:
@@ -115,12 +115,12 @@ def village(): #cannibal village, hidden easter egg for my roommate: ESCAPE ROUT
     print "Do you wish to rescue him?"
     choice_cannibals = raw_input("> ")
     global survivor
-    if "yes" == choice_cannibals and "stick" in inventar:
+    if "yes" == choice_cannibals and "stick" in inventory:
         print "You fought against the cannibals with a stick and rescued Bob, a truck driver from Texas."
         survivor += 1
         print "He joins your group. You are now %d people." % survivor
         jungle()
-    elif "yes" == choice_cannibals and "coconut" in inventar:
+    elif "yes" == choice_cannibals and "coconut" in inventory:
         print "You throw the coconut at the head of a cannibal and rescue Bob, a truck driver from Texas."
         survivor += 1
         print "He joins your group. You are now %d people." % survivor
@@ -144,10 +144,10 @@ def boat(): #picking up other survivors
 def hill():    # ESCAPE ROUTE2 where the signal light or smoke signal is best seen
     print "You reach a hill."
     print "The view from here is stunning. You can oversee the whole island."
-    while "signal light" in inventar or fire:
+    while "signal light" in inventory or fire:
         print "This gives you and idea. This might be the best spot for..."
         choice_hill = raw_input("> ")
-        if "signal" in choice_hill and "signal light" in inventar:
+        if "signal" in choice_hill and "signal light" in inventory:
             print "So you want to %r?" % choice_hill
             print "You use the signal as a beacon and a rescue team gets your location."
             print "Everyone is rescued and back home! %s, you're the best!" % name
@@ -174,8 +174,8 @@ def beach(): #picking up things
     if "lighter" in choice_things:
         print "You went to the lighter and picked it up."
         global fire
-        inventar1("lighter")
-        if (not fire and "magazine" in inventar) or (not fire and "leaves" in inventar):
+        inventoryadd("lighter")
+        if (not fire and "magazine" in inventory) or (not fire and "leaves" in inventory):
             fire = True
         else:
             print "Maybe you could use this lighter..."
@@ -183,7 +183,7 @@ def beach(): #picking up things
     elif "signal light" in choice_things:
         print "How handy. You picked up the signal light. What could you do with this?"
         stuff.remove("signal light")
-        inventar1("signal light")
+        inventoryadd("signal light")
     elif "coconut" in choice_things:
         print "You're going to the coconut. Do you want to eat it? 'yes' or 'no'?"
         choice_coconut = raw_input("> ")
@@ -193,15 +193,15 @@ def beach(): #picking up things
         else:
             print "You don't know what to do with the coconut, so you just put it in your bag."
             stuff.remove("coconut")
-            inventar1("coconut")
+            inventoryadd("coconut")
     elif "canned food" in choice_things:
         print "You pick up the canned food and suddenly feel really hungry."
         dead("You devour the food, but do not realize it is spoiled.")
     elif "rope" in choice_things:
         print "You take the rope."
         global raft
-        inventar1("rope")
-        if not raft and "logs" in inventar:
+        inventoryadd("rope")
+        if not raft and "logs" in inventory:
             print "Wait... You have enough materials for a raft!"
             raft = True
             print "You know have a raft. Your escape is so close."
@@ -254,7 +254,7 @@ def ocean(): #ESCAPE ROUTE3
             faint()
     else:
         print "You don't want to swim and don't even have a raft! Maybe you could build one?"
-        print "Right now this is in your inventar:", inventar
+        print "Right now this is in your inventory:", inventory
         print "Let's go back to the beach!"
         beach_beginning()
 
@@ -288,12 +288,12 @@ def start():
     print "'Do you wish to browse through our duty-free magazine or want to have a blanket?'"
     choice_plane = raw_input("> ")
     if "magazine" in choice_plane and "blanket" in choice_plane:
-        inventar.append('magazine')
-        inventar.append('blanket')
+        inventory.append('magazine')
+        inventory.append('blanket')
     elif "magazine" in choice_plane:
-        inventar.append('magazine')
+        inventory.append('magazine')
     elif "blanket" in choice_plane:
-        inventar.append('blanket')
+        inventory.append('blanket')
     else:
         print "'I'm sorry, we don't offer this.'"
     print "'Now lay back and relax.'"
@@ -306,7 +306,7 @@ def start():
     print "You slowly open your eyes."
     print "You must have survived the plane crash, but now you are stranded on an unkown island in the middle of nowhere."
     beach_beginning()
-    return inventar
+    return inventory
     return last_words
 
 start()
