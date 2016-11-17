@@ -30,7 +30,7 @@ class Person(object):
 class Employee(Person):
 
     def __init__(self, name, salary):
-        ##Employee has-a name
+        ## global function
         super(Employee, self).__init__(name)
         ##employee has-a salary
         self.salary = salary
