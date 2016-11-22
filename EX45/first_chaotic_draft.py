@@ -1,4 +1,3 @@
-##Game by Julia Vollmer
 from random import randint, choice
 from sys import exit, argv
 

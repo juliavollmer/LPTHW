@@ -1,10 +1,12 @@
+##Game by Julia Vollmer
 from sys import exit
 from random import randint, choice
+from people import *
 
 class User(object):
+    ##User is-a object; has-a money, random strength, name; can-do speak to other people, get money
 
     def __init__(self):
-        self.bag = []
         self.money = 0
         self.strength = randint(1,20)
         print "What is your name?"
@@ -41,6 +43,7 @@ class User(object):
             a_game.ticket = True
 
 class Item(object):
+     ##Item is- object; has-a name, description, 'usefullness value', can-do 'look' give out information
 
     def __init__(self, name, description, val):
         self.name = name
@@ -60,14 +63,14 @@ class Item(object):
 
 class Scene(object):
 
-    def items(self, item1, item2, item3):
+    def items(self, item1, item2, item3): #Scene can have 3 items
         self.hints = [item1, item2, item3]
         print "You can spot these things around here:"
         for clue in self.hints:
             print clue.name, "\t",
         print "\nWhat do you want to examine further?"
         itemlook = raw_input("> ")
-        while itemlook != "no":
+        while "no" not in itemlook:
             if itemlook == item1.name:
                 item1.look()
             elif itemlook == item2.name:
@@ -78,11 +81,12 @@ class Scene(object):
             itemlook = raw_input("> ")
         print "You stop the examination of items."
 
-    def enter(self):
+    def enter(self): #actual output
         print"enter()."
         exit(1)
 
     def next_places(self, directions, other_place1, other_place2, other_place3, other_place4):
+        #choosing next place
         print "In which direction do you want to go?"
         print directions
         userinput = raw_input("> ")
@@ -99,7 +103,7 @@ class Scene(object):
 
 class Engine(object):
 
-    def __init__(self, scene_map):
+    def __init__(self, scene_map): #set start values
         self.scene_map = scene_map
         self.key = False
         self.number = "%d%d%d" % (randint(0,9), randint(0,9), randint(0,9))
@@ -121,7 +125,7 @@ class Engine(object):
 
         current_scene.enter()
 
-class Death(Scene):
+class Death(Scene): ##just for people who want to go left/right when they shouldn't
 
     reason = [
         "You get lost and wander around the snowy landscape. You freeze to death",
@@ -231,13 +235,13 @@ class PoliceStation(Scene):
                 print "he killed her in his rage. Thanks to your hard work, this case is now closed."
             else:
                 print "You thought you could leave the station, after telling them the wrong culprit?"
-                print "You couldn't provide neither alibi nor the murderer. You are arrested and sentenced to life in prison."
+                print "You could neither provide an alibi nor the name of the murderer. You are arrested and sentenced to life in prison."
                 print "While you rot in prison, you think about the murderer, who's still on the loose."
                 print "Too bad, that you had enough hints. It was so close."
             print "Good job, %s" % a_game.user.name
             exit(0)
         print "Want to talk to someone?"
-        userinput = raw_input("(yes|no)>")
+        userinput = raw_input("(yes|no)> ")
         if userinput == "no":
             pass
         else:
@@ -254,7 +258,7 @@ class Park(Scene):
         people = [Police("Alexandra Phelps"), Gangster("Marie Smith"), Citizen("Elaine Foster"), Citizen("Dave Flanders"), Citizen("Walter Demian") ]
         human = choice(people)
         print "Someone is sitting on a bench. Do you want to talk to the person?"
-        userinput = raw_input("(yes/no)>")
+        userinput = raw_input("(yes/no)> ")
         if userinput == "no":
             pass
         else:
@@ -321,24 +325,24 @@ class WagonFinal(Scene):
             print "Now you're forever on the run. So nice..."
         exit(0)
 
-class Person(object):
-
-    def __init__(self, name):
-        self.name = name
-        self.voc_money = "Reaction to money question."
-        self.voc_name = "Reaction to name question."
-        self.voc_murder = "Reaction to question about the murder."
-        self.voc_gibson = "Reaction to question about Gibson."
-        self.voc_error = "Reaction to unclear answer."
-
-    def money(self):
-        print self.voc_money[randint(0, len(self.voc_money)-1)]
-
-    def murder(self):
-        pass
-
-    def gibson(self):
-        print self.voc_gibson[randint(0, len(self.voc_gibson)-1)]
+# class Person(object):
+#
+#     def __init__(self, name):
+#         self.name = name
+#         self.voc_money = "Reaction to money question."
+#         self.voc_name = "Reaction to name question."
+#         self.voc_murder = "Reaction to question about the murder."
+#         self.voc_gibson = "Reaction to question about Gibson."
+#         self.voc_error = "Reaction to unclear answer."
+#
+#     def money(self):
+#         print self.voc_money[randint(0, len(self.voc_money)-1)]
+#
+#     def murder(self):
+#         pass
+#
+#     def gibson(self):
+#         print self.voc_gibson[randint(0, len(self.voc_gibson)-1)]
 
 class Police(Person):
 
@@ -512,8 +516,8 @@ class Map(object):
         'wagon_final': WagonFinal(),
     }
 
-    def __init__(self, start_scene):
-        self.start_scene = start_scene
+    def __init__(self):
+        self.start_scene = 'snow_landscape'
 
     def next_scene(self, scene_name):
         val = Map.scenes.get(scene_name)
@@ -522,6 +526,6 @@ class Map(object):
     def opening_scene(self):
         return self.next_scene(self.start_scene)
 
-a_map = Map('snow_landscape')
+a_map = Map()
 a_game = Engine(a_map)
 a_game.play()
