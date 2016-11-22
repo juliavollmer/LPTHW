@@ -1,7 +1,6 @@
 ##Game by Julia Vollmer
 from sys import exit
 from random import randint, choice
-from people import *
 
 class User(object):
     ##User is-a object; has-a money, random strength, name; can-do speak to other people, get money
@@ -30,7 +29,7 @@ class User(object):
             elif "bye" in userinput:
                 i = 2
             else:
-                print human.voc_error[randint(0, len(human.voc_gibson)-1)]
+                print human.voc_error[randint(0, len(human.voc_error)-1)]
         print "\nYou end the conversation.\n"
 
     def add_money(self, value):
@@ -112,7 +111,7 @@ class Engine(object):
         self.witness = False
         self.user = User()
     def play(self):
-        print "You wake up. Cold, confused and without memories about the day before."
+        print "\n\nYou wake up. Cold, confused and without memories about the day before."
         print "As you look down on yourself, you noticed that your hands are covered in blood."
         print "What happened yesterday?"
         print "On you left arm you see some numbers. Unfortunately you can only decipher two of the three digits."
@@ -325,24 +324,24 @@ class WagonFinal(Scene):
             print "Now you're forever on the run. So nice..."
         exit(0)
 
-# class Person(object):
-#
-#     def __init__(self, name):
-#         self.name = name
-#         self.voc_money = "Reaction to money question."
-#         self.voc_name = "Reaction to name question."
-#         self.voc_murder = "Reaction to question about the murder."
-#         self.voc_gibson = "Reaction to question about Gibson."
-#         self.voc_error = "Reaction to unclear answer."
-#
-#     def money(self):
-#         print self.voc_money[randint(0, len(self.voc_money)-1)]
-#
-#     def murder(self):
-#         pass
-#
-#     def gibson(self):
-#         print self.voc_gibson[randint(0, len(self.voc_gibson)-1)]
+class Person(object):
+
+    def __init__(self, name):
+        self.name = name
+        self.voc_money = "Reaction to money question."
+        self.voc_name = "Reaction to name question."
+        self.voc_murder = "Reaction to question about the murder."
+        self.voc_gibson = "Reaction to question about Gibson."
+        self.voc_error = "Reaction to unclear answer."
+
+    def money(self):
+        print self.voc_money[randint(0, len(self.voc_money)-1)]
+
+    def murder(self):
+        pass
+
+    def gibson(self):
+        print self.voc_gibson[randint(0, len(self.voc_gibson)-1)]
 
 class Police(Person):
 
