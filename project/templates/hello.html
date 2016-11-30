@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to My Website</title>
+</head>
+<bod>
+  <div id="header">
+    {% if greeting %}
+    <h1>{{ greeting }}</h1>
+    {% else %}
+    User not authorized!
+    {% endif %}
+  </div>
+  <div id="content">My Content</div>
+  <div id="footer">
+    &copy; Copyright 2016 by <a href="http://domain.invalid/">me</a>.
+  </div>
+</body>
+</html>
