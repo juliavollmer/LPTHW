@@ -1,0 +1,34 @@
+/* Style by tag */
+h1 {
+  color: rgb(135, 52, 255);
+  background-color: rgb(0, 3, 26);
+}
+
+h2 {
+  color: white;
+  background-color:rgb(246, 57, 113);
+}
+
+.bgimg {
+    background-image: url('galaxy.jpg');
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+/* Style by id */
+#container {
+  margin: 0 auto;
+}
+
+#description {
+  float: left;
+  background-color: rgb(41, 0, 37);
+  color: rgb(202, 247, 250);
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+#help {
+  float: left;
+  margin-left: 8px;
+}

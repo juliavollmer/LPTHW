@@ -3,8 +3,10 @@
 {% block content %}
 {% if scene %}
   <h1> {{ scene.title }} </h1>
-  <pre>{{ scene.description }}</pre>
-  {% if death in scene.urlname %}
+  <p>{{ missing }}</p>
+  <div id="description">
+    <pre>{{ scene.description }}</pre>
+  {% if "death" in scene.urlname %}
     <p><a href="/">Play Again?</a></p>
   {% else %}
     <p>
@@ -12,6 +14,11 @@
         What do you do? <input type="text" name="userinput"> <input type="SUBMIT">
       </form>
     </p>
+    </div>
+    <div id="help">
+          <p>?</p>
+          <pre>{{ scene.help }}</pre>
+    </div>
   {% endif %}
 {% else %}
   <p><a href="/">Start at the Beginning</a></p>

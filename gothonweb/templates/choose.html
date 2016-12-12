@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='layoutstyle.css') }}">
+  <title>Game List</title>
+</head>
+
+<body>
+  <h1>What game do you want do play?</h1>
+  <form action="/" method="POST">
+  <input type="submit" name="map" value="Game 1">
+  <input type="submit" name="map" value="Game 2">
+</form>
+</body>
+</html>
