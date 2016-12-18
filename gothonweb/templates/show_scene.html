@@ -1,26 +1,30 @@
 {% extends "layout.html" %}
-
 {% block content %}
+<div class="container">
 {% if scene %}
-  <h1> {{ scene.title }} </h1>
+  <h1> {{ scene.header}}
+  <h2> {{ scene.title }} </h2>
   <p>{{ missing }}</p>
-  <div id="description">
+  <div class="description">
     <pre>{{ scene.description }}</pre>
   {% if "death" in scene.urlname %}
-    <p><a href="/">Play Again?</a></p>
+  <p><a href="/game">Play Again?</a></p>
+  <p><a href="/">Change game?</a></p>
   {% else %}
     <p>
         <form action="/game" method="POST">
         What do you do? <input type="text" name="userinput"> <input type="SUBMIT">
       </form>
     </p>
-    </div>
-    <div id="help">
+  </div>
+    <div class="help">
           <p>?</p>
           <pre>{{ scene.help }}</pre>
     </div>
   {% endif %}
+  <p><a href="/logout">Logout</a></p>
 {% else %}
   <p><a href="/">Start at the Beginning</a></p>
 {% endif %}
+</div>
 {% endblock %}

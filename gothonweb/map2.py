@@ -1,3 +1,4 @@
+#
 from random import randint
 
 class Scene(object):
@@ -8,6 +9,7 @@ class Scene(object):
         self.paths = {}
         self.help = helptext
         self.guesses = 8
+        self.header= 'Roadtrip'
 
     def go(self, direction):
         default_direction = None
@@ -22,9 +24,11 @@ code = '%d%d%d' % (randint(1,9), randint(1,9), randint(1,9))
 good_pod = randint(1,5)
 
 # Create the scenes of the game
-central_corridor = Scene("Central Corridor", "central_corridor",
+home = Scene("Your Home", "home",
  """
-This is game two. You did it!
+Finally you have time for a vacation.
+But when you check your finances you realise that it might not happen at all.
+You look around and spot your piggy bank.
  """,
  """
 Be fast and 'dodge!' Or you could 'tell a joke'
@@ -175,7 +179,7 @@ guessing.add_paths({
     '*': code_death
 })
 
-central_corridor.add_paths({
+home.add_paths({
     'shoot!':shoot_death,
     'dodge!':dodge_death,
     'tell a joke': laser_weapon_armory
@@ -183,7 +187,7 @@ central_corridor.add_paths({
 
 # Make some useful variables to be used in the web application
 SCENES = {
-    central_corridor.urlname: central_corridor,
+    home.urlname: home,
     laser_weapon_armory.urlname: laser_weapon_armory,
     the_bridge.urlname : the_bridge,
     escape_pod.urlname : escape_pod,
@@ -194,4 +198,4 @@ SCENES = {
     throw_death.urlname : throw_death,
     guessing.urlname : guessing
 }
-START = central_corridor
+START = home

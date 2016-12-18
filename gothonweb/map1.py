@@ -8,6 +8,7 @@ class Scene(object):
         self.paths = {}
         self.help = helptext
         self.guesses = 8
+        self.header= 'Gothons Of Planet Percal #25'
 
     def go(self, direction):
         default_direction = None
@@ -18,7 +19,7 @@ class Scene(object):
     def add_paths(self, paths):
         self.paths.update(paths)
 
-code = '%d%d%d' % (randint(1,9), randint(1,9), randint(1,9))
+code = '%d%d' % (randint(1,9), randint(1,9))
 good_pod = randint(1,5)
 
 # Create the scenes of the game
@@ -54,11 +55,11 @@ that might be hiding. It's dead quiet, too quiet.
 You stand up and run to the far side of the room and find the neutron bomb in its
 container. There's a keypad lock on the box and you need the code to get the bomb
 out. If you get the code wrong 10 times then the lock closes forever and you can't
-get the bomb. The code is 3 digits.
+get the bomb. The code is 2 digits.
  """,
  """
- One of the 3 digits is: %s
- """ % code[randint(0,2)]
+ One of the digits is: %s
+ """ % code[randint(0,1)]
 )
 
 guessing = Scene("Keypad Lock", "guessing",
@@ -66,7 +67,7 @@ guessing = Scene("Keypad Lock", "guessing",
 BZZZZEDD!
 The code must have been wrong, but you need the code to get the bomb
 out. Remember, if you get the code wrong 10 times then the lock closes forever and you can't
-get the bomb. The code is 3 digits.
+get the bomb. The code is 2 digits.
 """,
 """
 The first digit is: %s
