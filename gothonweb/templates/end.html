@@ -1,15 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
 {% if scene %}
-<h1> {{ scene.header}}
+<h1> {{ scene.header}} </h1>
 <h2> {{ scene.title }} </h2>
 <div class="description">
   <pre>{{ scene.description }}</pre>
+  <p>{{ highscore }}</p>
 </div>
 {% else %}
-<h1>You died!</h1>
-<p>Looks like you bit the dust.</p>
+<h2>You died!</h2>
+  <div class="description">
+<p>Looks like you bit the dust. Or you just shouldn't be here.</p>
 {% endif %}
+<div class="center">
 <p><a href="/game">Play Again?</a></p>
 <p><a href="/">Change game?</a></p>
+<p><a href="/logout">Logout</a></p>
+</div>
+</div>
 {% endblock %}

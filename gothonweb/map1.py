@@ -20,11 +20,11 @@ class Scene(object):
         self.paths.update(paths)
 
 code = '%d%d' % (randint(1,9), randint(1,9))
-good_pod = randint(1,5)
+good_pod = '%d'% randint(1,5)
 
 # Create the scenes of the game
 central_corridor = Scene("Central Corridor", "central_corridor",
- """
+"""
 The Gothons of Planet Percal #25 have invaded your ship and destroyed
 your entire crew. You are the last surviving member (oh noes!) and your
 last mission is to get the neutron destruct bomb from the Weapons Armory,
@@ -33,10 +33,10 @@ put it in the bridge, and blow up the ship after getting into an escape pod.
 You're now running down the central corridor to the Weapons Armory when a
 Gothon hops out in an evil clown costume filled with hate. He's blocking the door
 to the Armory and about to pull a weapon to blast you.
- """,
- """
-Be fast and 'dodge!' Or you could 'tell a joke'
-and distract the Gothon. You could also try to
+""",
+"""
+Be fast and 'dodge!' Or you could 'tell a joke'\n
+and distract the Gothon. You could also try to\n
 defend yourself by shooting first, 'shoot!'
  """)
 
@@ -59,7 +59,7 @@ get the bomb. The code is 2 digits.
  """,
  """
  One of the digits is: %s
- """ % code[randint(0,1)]
+ """ % code#[randint(0,1)]
 )
 
 guessing = Scene("Keypad Lock", "guessing",
@@ -71,7 +71,8 @@ get the bomb. The code is 2 digits.
 """,
 """
 The first digit is: %s
-""" % code[0])
+Code: %s
+""" % (code[0], code))
 
 the_bridge = Scene("The Bridge", "the_bridge",
 """
@@ -156,7 +157,7 @@ and then explode like a supernova, taking down the Gothon ship at the same time.
 You made it!
 """ % good_pod, None)
 
-the_end_loser = Scene("...", "the_end_loser",
+the_end_death = Scene("...", "the_end_death",
 """
 You jump into a random pod and hit the eject button. The pod escapes into space
 but there's a crack in the hull. Uh oh. The pod implodes and you with it.
@@ -165,7 +166,7 @@ but there's a crack in the hull. Uh oh. The pod implodes and you with it.
 # Define the action commands available in each scene
 escape_pod.add_paths({
     good_pod: the_end_winner,
-    '*': the_end_loser
+    '*': the_end_death
 })
 
 the_bridge.add_paths({
@@ -196,7 +197,7 @@ SCENES = {
     the_bridge.urlname : the_bridge,
     escape_pod.urlname : escape_pod,
     the_end_winner.urlname : the_end_winner,
-    the_end_loser.urlname : the_end_loser,
+    the_end_death.urlname : the_end_death,
     shoot_death.urlname : shoot_death,
     dodge_death.urlname : dodge_death,
     throw_death.urlname : throw_death,
