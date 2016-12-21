@@ -1,4 +1,4 @@
-#
+#unfinished game
 from random import randint
 
 class Scene(object):

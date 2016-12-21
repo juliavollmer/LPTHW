@@ -151,7 +151,7 @@ You need to get out here, as fast as possible! The nights darken and who knows, 
 """,
 """
 Try to remember your meeting with the houseowner. There should have been some hints. %s
-""" % code
+""" % password
 )
 
 code_death = Scene("ALARM - HOUSEPROTECTORv0.1", "code_death",
@@ -251,7 +251,7 @@ city.add_paths({
 })
 
 couchsurfing.add_paths({
-    code: city,
+    password: city,
     '*': guessing
 })
 guessing.add_paths({
