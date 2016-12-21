@@ -21,7 +21,7 @@ h2 {
 
 body {
     background-image: url('galaxy.jpg');
-    min-height: 150%;
+    height: 150%;
     background-position: center;
 }
 
@@ -70,6 +70,7 @@ span{
 }
 .center {
     text-align: center;
+    color: white;
 }
 p:hover span{
     display:block;

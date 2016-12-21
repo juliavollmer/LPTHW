@@ -3,6 +3,7 @@ from app import app
 from tests.tools import assert_response
 from map1 import code
 
+###TEST WORKED BEFORE MAKING THE APP TO COMPLEX
 client = app.test_client() # create a testing client (like a fake web browser)
 client.testing = True # enable this so that errors in your web app bubble up to the testing client
 

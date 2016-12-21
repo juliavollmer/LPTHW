@@ -1,5 +1,6 @@
 from nose.tools import *
 from map1 import *
+from map2 import *
 
 def test_scene():
     gold = Scene("GoldScene", "goldroom",
@@ -48,3 +49,34 @@ def test_gothon_game_map():
     assert_equal(third, escape_pod)
     assert_equal(third.go(good_pod), the_end_winner)
     assert_equal(third.go('*'), the_end_loser)
+
+def test_roadtrip_map():
+    assert_equal(START.go('destroy the piggy bank'), piggy_death)
+    room = START.go('go nonetheless'')
+    assert_equal(room, hitchhiking)
+    assert_equal(room.go('go to car'), accident_death))
+
+    second = room.go('go to truck')
+    assert_equal(second, truck)
+    assert_equal(second.go('immediately escape'), escape_death)
+
+    third = second.go('ask him about it')
+    assert_equal(third, reststop)
+    assert_equal(third.go('*'), reststop_death)
+
+    fourth = third.go(good_truck)
+    assert_equal(fourth, truck2)
+
+    fifth = fourth.go('okay')
+    assert_equal(fifth, city)
+    assert_equal(fifth.go('earn money'), dishes)
+
+    sixt = fifth.go('try couchsurfing')
+    assert_equal(sixt, couchsurfing)
+    assert_equal(sixt.go('password'), city)
+    assert_equal(sixt.go('*'), guessing)
+
+    seventh = fifth.go('go underneath the bridge')
+    assert_equal(seventh.go('read newspaper'), newspaper)
+    assert_equal(seventh.go('sleep'), money)
+    assert_equal(seventh.go('sit by the fire'), fire death)

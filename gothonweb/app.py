@@ -6,7 +6,7 @@ engine = create_engine('sqlite:///tutorial.db', echo=True)
 map = None
 score = 'scene'
 app = Flask(__name__)
-name = ''
+name = 'Player'
 
 @app.route('/game', methods=['GET'])
 def game_get():
@@ -21,6 +21,7 @@ def game_get():
         else:
             session[score] = map.START.urlname
             thescene = map.SCENES[session[score]]
+            session['money'] = 0
             return render_template('show_scene.html', scene=thescene)
 
 
@@ -40,15 +41,27 @@ def game_post():
                     return render_template('show_scene.html', scene=currentscene)
             elif nextscene is None:
                 #There's no transition for that user input
-                #what should your code do in response?
+                #what should your code do in response? Allow user to type in again.
                 return render_template('show_scene.html', scene=currentscene, missing="You can't do this. Please try again.")
+            elif nextscene.amount >= 1:
+                session['money'] = session['money'] + nextscene.amount
+                session[score] = nextscene.urlname
+                return render_template('show_scene.html', scene=nextscene, missing="You now have $%d" % session['money'])
+            elif session['money'] >= 20:
+                 session.pop(score)
+                 nextscene = map.the_end_winner
+                 session['points'] += 1
+                 highscore1 = session['points']
+                 return render_template('end.html', scene=nextscene, highscore=highscore1)
             elif 'death' in nextscene.urlname:
                 session.pop(score)
+                session['money']=0
                 return render_template('end.html', scene=nextscene)
             elif 'winner' in nextscene.urlname:
                 session.pop(score)
                 session['points'] += 1
-                return render_template('end.html', scene=nextscene, highscore=user.highscore)
+                highscore1 = session['points']
+                return render_template('end.html', scene=nextscene, highscore=highscore1)
 
             else:
                 session[score] = nextscene.urlname
@@ -58,7 +71,7 @@ def game_post():
     else:
         #There's no session, how could the user get here?
         # What should your code do in response?
-        return render_template('end.html')
+        return redirect(url_for('choose_get'))
 
 # Select the game you want to play
 @app.route('/choose', methods=['GET'])
@@ -78,15 +91,13 @@ def choose_post():
     elif choose == "Roadtrip":
         import map2 as map
         score = 'scene2'
-    elif choose == "Murder at Night":
-        import map3 as map
-        score = 'scene3'
     return redirect(url_for('game_get')) # redirect the browser to the url for game_get
 
 #redirecting to login
 @app.route('/')
 def index():
     return redirect(url_for('login_get'))
+    
 @app.route('/login', methods=['GET'])
 def login_get():
     if not session.get('logged_in'):
@@ -114,21 +125,6 @@ def do_admin_login():
         pass
     return login_get()
 
-@app.route('/test')
-def test():
-
-    POST_USERNAME = "python"
-    POST_PASSWORD = "python"
-
-    Session = sessionmaker(bind=engine)
-    s = Session()
-    query = s.query(User).filter(User.username.in_([POST_USERNAME]), User.password.in_([POST_PASSWORD]) )
-    result = query.first()
-    if result:
-        return "Object found"
-    else:
-        return "Object not found " + POST_USERNAME + " " + POST_PASSWORD
-
 @app.route("/logout")
 def logout():
     session['logged_in'] = False
@@ -155,7 +151,8 @@ def signup_post():
 
 @app.route('/reset')
 def reset():
-    session.pop(score) # remove 'count' from the session
+    session.pop(score)
+    session['money'] = 0
     return redirect(url_for('game_get'))
 
 

@@ -5,7 +5,9 @@
 <h2> {{ scene.title }} </h2>
 <div class="description">
   <pre>{{ scene.description }}</pre>
-  <p>{{ highscore }}</p>
+  {% if highscore %}
+  <p>Number of completed games: {{ highscore }}</p>
+  {% endif %}
 </div>
 {% else %}
 <h2>You died!</h2>

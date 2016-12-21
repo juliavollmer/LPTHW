@@ -1,7 +1,7 @@
 from random import randint
 
 class Scene(object):
-    def __init__(self, title, urlname, description, helptext):
+    def __init__(self, title, urlname, description, helptext=None):
         self.title = title
         self.urlname = urlname
         self.description = description
@@ -9,6 +9,7 @@ class Scene(object):
         self.help = helptext
         self.guesses = 8
         self.header= 'Gothons Of Planet Percal #25'
+        self.amount = 0
 
     def go(self, direction):
         default_direction = None
@@ -119,7 +120,7 @@ off your aim. Your laser hits his costume but misses him entirely. This
 completely ruins his brand new costume his mother bought him, which
 makes him fly into an insane rage and blast you repeatedly in the face until
 you are dead. Then he eats you.
-""", None)
+""")
 
 dodge_death = Scene("Death...", "dodge_death",
 """
@@ -129,7 +130,7 @@ In the middle of your artful dodge your foot slips and you
 bang your head on the metal wall and pass out.
 You wake up shortly after only to die as the Gothon stomps on
 your head and eats you.
-""", None)
+""")
 
 code_death = Scene("Death...", "code_death",
 """
@@ -137,7 +138,7 @@ The lock buzzes one last time and then you hear a sickening
 melting sound as the mechanism is fused together.
 You decide to sit there, and finally the Gothons blow up the
 ship from their ship and you die.
-""", None)
+""")
 
 throw_death = Scene("Death...", "code_death",
 """
@@ -147,7 +148,7 @@ Gothon shoots you right in the back killing you.
 As you die you see another Gothon frantically try to disarm
 the bomb. You die knowing they will probably blow up when
 it goes off.
-""", None)
+""")
 
 the_end_winner = Scene("You Made It!", "the_end_winner",
 """
@@ -155,13 +156,13 @@ You jump into pod %s and hit the eject button. The pod flies out into space head
 to the planet below. As you're heading down, you look back and see your ship implode
 and then explode like a supernova, taking down the Gothon ship at the same time.
 You made it!
-""" % good_pod, None)
+""" % good_pod)
 
 the_end_death = Scene("...", "the_end_death",
 """
 You jump into a random pod and hit the eject button. The pod escapes into space
 but there's a crack in the hull. Uh oh. The pod implodes and you with it.
-""", None)
+""")
 
 # Define the action commands available in each scene
 escape_pod.add_paths({
