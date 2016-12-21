@@ -97,7 +97,7 @@ def choose_post():
 @app.route('/')
 def index():
     return redirect(url_for('login_get'))
-    
+
 @app.route('/login', methods=['GET'])
 def login_get():
     if not session.get('logged_in'):
@@ -159,4 +159,4 @@ def reset():
 app.secret_key = '123456789gAmCmJsLd4'
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

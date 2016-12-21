@@ -60,7 +60,7 @@ get the bomb. The code is 2 digits.
  """,
  """
  One of the digits is: %s
- """ % code#[randint(0,1)]
+ """ % code[randint(0,1)]
 )
 
 guessing = Scene("Keypad Lock", "guessing",
@@ -73,7 +73,7 @@ get the bomb. The code is 2 digits.
 """
 The first digit is: %s
 Code: %s
-""" % (code[0], code))
+""" % code[0])
 
 the_bridge = Scene("The Bridge", "the_bridge",
 """
